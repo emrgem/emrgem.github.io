@@ -139,10 +139,10 @@
 
         <div class="box-container">
             <div class="demo-box" id="demo-box-1">
-                <div class="demo-content">Content 1</div>
+                <div class="demo-content">Box 1</div>
             </div>
             <div class="demo-box" id="demo-box-2">
-                <div class="demo-content">Content 2</div>
+                <div class="demo-content">Box 2</div>
             </div>
         </div>
 
@@ -155,7 +155,7 @@
         const paddingSlider = document.getElementById('padding');
         const demoBox1 = document.getElementById('demo-box-1');
         const demoBox2 = document.getElementById('demo-box-2');
-        const codePreview = document.getElementById('code-preview');
+        const codePreview = document.querySelector('.code-preview');
 
         function updateBox() {
             const margin = marginSlider.value;
