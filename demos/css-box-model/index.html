@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .control-group {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 600px;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .demo-box {
+            background: white;
+            transition: all 0.3s ease;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .demo-content {
+            width: 100px;
+            height: 100px;
+            background: #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .label {
+            position: absolute;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .margin-label {
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .padding-label {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            color: #9ca3af;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .measurements {
+            position: absolute;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .measurement {
+            position: absolute;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .code-preview {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSS Box Model Interactive Tutorial</h1>
+        <p>Adjust the sliders to see how margin, border, and padding affect an element's box model.</p>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>
+                    Margin
+                    <input type="range" id="margin" min="0" max="50" value="20">
+                    <span id="margin-value">20px</span>
+                </label>
+            </div>
+            <div class="control-group">
+                <label>
+                    Border
+                    <input type="range" id="border" min="0" max="20" value="2">
+                    <span id="border-value">2px</span>
+                </label>
+            </div>
+            <div class="control-group">
+                <label>
+                    Padding
+                    <input type="range" id="padding" min="0" max="50" value="10">
+                    <span id="padding-value">10px</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="box-container">
+            <div class="demo-box" id="demo-box-1">
+                <div class="demo-content">Box 1</div>
+            </div>
+            <div class="demo-box" id="demo-box-2">
+                <div class="demo-content">Box 2</div>
+            </div>
+        </div>
+
+        <div class="code-preview" id="code-preview"></div>
+    </div>
+
+    <script>
+        const marginSlider = document.getElementById('margin');
+        const borderSlider = document.getElementById('border');
+        const paddingSlider = document.getElementById('padding');
+        const demoBox1 = document.getElementById('demo-box-1');
+        const demoBox2 = document.getElementById('demo-box-2');
+        const codePreview = document.getElementById('code-preview');
+
+        function updateBox() {
+            const margin = marginSlider.value;
+            const border = borderSlider.value;
+            const padding = paddingSlider.value;
+
+            document.getElementById('margin-value').textContent = margin + 'px';
+            document.getElementById('border-value').textContent = border + 'px';
+            document.getElementById('padding-value').textContent = padding + 'px';
+
+            demoBox1.style.margin = margin + 'px';
+            demoBox1.style.border = border + 'px solid #9ca3af';
+            demoBox1.style.padding = padding + 'px';
+
+            demoBox2.style.margin = margin + 'px';
+            demoBox2.style.border = border + 'px solid #9ca3af';
+            demoBox2.style.padding = padding + 'px';
+
+            updateCodePreview(margin, border, padding);
+        }
+
+        function updateCodePreview(margin, border, padding) {
+            codePreview.textContent = 
+`.demo-box {
+    margin: ${margin}px;
+    border: ${border}px solid #9ca3af;
+    padding: ${padding}px;
+    background: white;
+}`;
+        }
+
+        marginSlider.addEventListener('input', updateBox);
+        borderSlider.addEventListener('input', updateBox);
+        paddingSlider.addEventListener('input', updateBox);
+
+        // Initial update
+        updateBox();
+    </script>
+</body>
+</html>
